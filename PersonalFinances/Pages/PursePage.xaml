@@ -1,0 +1,58 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.PursePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="BtnAddPurse" Icon="Add" Label="Создать" HorizontalAlignment="Right"
+                           Click="BtnAddPurse_Click" />
+            <AppBarButton x:Name="BtnEditPurse" Icon="Edit" Label="Изменить" HorizontalAlignment="Right"
+                          Click="BtnEditPurse_Click" />
+            <AppBarButton x:Name="BtnDelPurse" Icon="Delete" Label="Удалить" HorizontalAlignment="Right"
+                          Click="BtnDelPurse_Click"  />
+            <AppBarButton x:Name="SortPurse" Icon="Sort" Label="Сортировать" HorizontalAlignment="Right" 
+                          Click="SortPurse_Click"/>
+            <CommandBar.Resources>
+                <MenuFlyout x:Name="sortFlyotMenu">
+                    <ToggleMenuFlyoutItem x:Name="sortPurseByName" IsChecked="False" Text="По алфавиту"
+                                          Click="sortPurseByName_Click"/>
+                    <ToggleMenuFlyoutItem x:Name="sortPurseByBalanceDesc" IsChecked="False" Text="По балансу (↓)"
+                                          Click="sortPurseByBalanceDesc_Click"/>
+                    <ToggleMenuFlyoutItem x:Name="sortPurseByBalance" IsChecked="False" Text="По балансу (↑)"
+                                          Click="sortPurseByBalance_Click"/>
+                </MenuFlyout>
+            </CommandBar.Resources>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="#efebec">
+        <ListView x:Name="purseList" Margin="10"  Holding="purseList_Holding" RightTapped="purseList_RightTapped" >
+            <ListView.ItemTemplate>
+                <DataTemplate  x:DataType="local:Purse">
+                    <StackPanel x:Name="stackPanelPurse" Margin="0 0 0 10">
+                        <RelativePanel>
+                            <Image x:Name="imgPurse" Height="50" Width="50" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/finance.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="namePurse" FontSize="16" Text="{x:Bind Name}" Foreground="#0f754f" Margin="10 0 0 0" FontWeight="Bold" RelativePanel.RightOf="imgPurse" />
+                            <TextBlock x:Name="balancePurse" FontSize="16" Text="{x:Bind Balance}" Margin="10 10 0 0" RelativePanel.Below="namePurse" RelativePanel.RightOf="imgPurse" />
+                            <TextBlock x:Name="abbrPurse" FontSize="16" Text="{x:Bind Currency.Abbreviation}" Margin="10 10 0 0" RelativePanel.RightOf="balancePurse" RelativePanel.Below="namePurse" />
+                        </RelativePanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Resources>
+                <MenuFlyout x:Name="purseListFlyoutMenu">
+                    <MenuFlyout.Items >
+                        <MenuFlyoutItem  x:Name="Edit" Text="Изменить" Click="Edit_Click"  />
+                        <MenuFlyoutItem  x:Name="Delete" Text="Удалить" Click="Delete_Click"  />
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
+        </ListView>
+        <TextBlock x:Name="errorText" Foreground="#c9302c" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 0 0 10" />
+
+    </Grid>
+</Page>

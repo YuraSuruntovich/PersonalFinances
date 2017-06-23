@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.CategoriesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="BtnAddCostCategor" Icon="Remove" Label="Создать категорию расходов" HorizontalAlignment="Right"
+                                                          />
+            <AppBarButton x:ConnectionId='2' x:Name="BtnAddIncomeCategor" Icon="Add" Label="Создать категорию доходов" HorizontalAlignment="Right" 
+                                                           />
+            <AppBarButton x:ConnectionId='3' x:Name="SortCategor" Icon="Sort" Label="Сортировать" HorizontalAlignment="Right" 
+                                                   />
+            <CommandBar.Resources>
+                <MenuFlyout x:ConnectionId='4' x:Name="sortFlyotMenu">
+                    <ToggleMenuFlyoutItem x:ConnectionId='5' x:Name="sortCategorByName" IsChecked="False" Text="По алфавиту(А-Я)"
+                                                                         />
+                    <ToggleMenuFlyoutItem x:ConnectionId='6' x:Name="sortCategorByNameDesc" IsChecked="False" Text="По алфавиту(Я-А)"
+                                                                             />
+                </MenuFlyout>
+            </CommandBar.Resources>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="#efebec">
+        <Pivot x:ConnectionId='7' x:Name="pivot">
+            <PivotItem Header="Расходы">
+                <ScrollViewer>
+                    <StackPanel>
+                        <ScrollViewer>
+                            <ListView x:ConnectionId='14' x:Name="costCategorList" Margin="10"                                                                              >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate                                  >
+                                        <StackPanel x:ConnectionId='15' Margin="0 0 0 10">
+                                            <RelativePanel>
+                                                <Image x:Name="iconCategor" Height="50" Width="50" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/CostCategor.png" RelativePanel.AlignLeftWithPanel="True" />
+                                                <TextBlock x:ConnectionId='16' x:Name="nameCostCategor" FontSize="18"                      Foreground="#c9302c" Margin="10 0 0 0" RelativePanel.RightOf="iconCategor" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                            </RelativePanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.Resources>
+                                    <MenuFlyout x:ConnectionId='17' x:Name="costCategorListFlyoutMenu">
+                                        <MenuFlyout.Items >
+                                            <MenuFlyoutItem x:ConnectionId='18'  x:Name="Edit" Text="Изменить"                     />
+                                            <MenuFlyoutItem x:ConnectionId='19'  x:Name="Delete" Text="Удалить"                      />
+                                        </MenuFlyout.Items>
+                                    </MenuFlyout>
+                                </ListView.Resources>
+                            </ListView>
+                        </ScrollViewer>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+
+            <PivotItem Header="Доходы">
+                <ScrollViewer>
+                    <StackPanel>
+                        <ListView x:ConnectionId='8' x:Name="sourceOfIncomeList" Margin="10"                                                                                     >
+                            <ListView.ItemTemplate>
+                                <DataTemplate                                  >
+                                    <StackPanel x:ConnectionId='9' Margin="0 0 0 10">
+                                        <RelativePanel>
+                                            <Image x:Name="iconCategor" Height="50" Width="50" Margin="0 5 0 0" 
+                                               Source="ms-appx:///Assets/Images/IncomeCotegor.png" RelativePanel.AlignLeftWithPanel="True" />
+                                            <TextBlock x:ConnectionId='10' x:Name="nameSourceOfIncome" FontSize="18"                     
+                                                   Foreground="#0f754f" Margin="10 0 0 0" RelativePanel.RightOf="iconCategor"
+                                                   RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                        </RelativePanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.Resources>
+                                <MenuFlyout x:ConnectionId='11' x:Name="sourceOfIncomeFlyoutMenu">
+                                    <MenuFlyout.Items >
+                                        <MenuFlyoutItem x:ConnectionId='12'  x:Name="EditSourceOfIncome" Text="Изменить"                                   />
+                                        <MenuFlyoutItem x:ConnectionId='13'  x:Name="DeleteSourceOfIncome" Text="Удалить"                                    />
+                                    </MenuFlyout.Items>
+                                </MenuFlyout>
+                            </ListView.Resources>
+                        </ListView>
+                    </StackPanel>
+                </ScrollViewer>
+                
+            </PivotItem> 
+            
+        </Pivot>
+       
+    </Grid>
+</Page>
+

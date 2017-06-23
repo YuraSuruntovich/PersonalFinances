@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.CurrencyEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="BtnOk" Icon="Accept" Label="Готово" HorizontalAlignment="Right"
+                          Click="BtnOk_Click" />
+            <AppBarButton x:Name="BtnCancel" Icon="Cancel" Label="Отмена" HorizontalAlignment="Right"
+                          Click="BtnCancel_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="#efebec">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" x:Name="headerBlock" Text = "Редактировать валюту"
+                           Style="{ThemeResource HeaderTextBlockStyle}" Foreground="#0f754f" Margin="10 0 0 0" />
+        <StackPanel Grid.Row="1">
+            <RelativePanel>
+                <TextBlock x:Name="rateBlock" Text="Курс валюты" Margin="10" />
+                <TextBlock x:Name="scaleCur" RelativePanel.Below="rateBlock" Margin="10 15 0 0" />
+                <TextBlock x:Name="abrevCur" RelativePanel.Below="rateBlock" 
+                           RelativePanel.RightOf="scaleCur" Margin="10 15 0 0"/>
+                <TextBox x:Name="rateBox" PlaceholderText="Введите курс..." 
+                     RelativePanel.Below="rateBlock" Margin="10" InputScope="Digits" RelativePanel.RightOf="abrevCur" />
+                <TextBlock x:Name="nameByn1" Text="BYN" Margin="10 15 10 0" RelativePanel.RightOf="rateBox"
+                           RelativePanel.Below="rateBlock"/>
+                <AppBarButton x:Name="getOfficialRate_1" Icon="World" RelativePanel.RightOf="nameByn1" 
+                              Height="40" Width="30" Click="getOfficialRate_1_Click" RelativePanel.Below="rateBlock"/>
+                <ProgressRing x:Name="ring1" IsActive="False" Height="40" Width="30" 
+                                          RelativePanel.RightOf="getOfficialRate_1" RelativePanel.Below="rateBlock"/>
+            </RelativePanel>
+        </StackPanel>
+        <TextBlock Grid.Row="2" x:Name="errorText" Foreground="#c9302c" />
+
+    </Grid>
+</Page>

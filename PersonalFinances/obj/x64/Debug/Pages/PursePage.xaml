@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.PursePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="BtnAddPurse" Icon="Add" Label="Создать" HorizontalAlignment="Right"
+                                                     />
+            <AppBarButton x:ConnectionId='2' x:Name="BtnEditPurse" Icon="Edit" Label="Изменить" HorizontalAlignment="Right"
+                                                     />
+            <AppBarButton x:ConnectionId='3' x:Name="BtnDelPurse" Icon="Delete" Label="Удалить" HorizontalAlignment="Right"
+                                                     />
+            <AppBarButton x:ConnectionId='4' x:Name="SortPurse" Icon="Sort" Label="Сортировать" HorizontalAlignment="Right" 
+                                                 />
+            <CommandBar.Resources>
+                <MenuFlyout x:ConnectionId='5' x:Name="sortFlyotMenu">
+                    <ToggleMenuFlyoutItem x:ConnectionId='6' x:Name="sortPurseByName" IsChecked="False" Text="По алфавиту"
+                                                                       />
+                    <ToggleMenuFlyoutItem x:ConnectionId='7' x:Name="sortPurseByBalanceDesc" IsChecked="False" Text="По балансу (↓)"
+                                                                              />
+                    <ToggleMenuFlyoutItem x:ConnectionId='8' x:Name="sortPurseByBalance" IsChecked="False" Text="По балансу (↑)"
+                                                                          />
+                </MenuFlyout>
+            </CommandBar.Resources>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="#efebec">
+        <ListView x:ConnectionId='9' x:Name="purseList" Margin="10"                                                                  >
+            <ListView.ItemTemplate>
+                <DataTemplate                          >
+                    <StackPanel x:ConnectionId='11' x:Name="stackPanelPurse" Margin="0 0 0 10">
+                        <RelativePanel>
+                            <Image x:Name="imgPurse" Height="50" Width="50" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/finance.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:ConnectionId='12' x:Name="namePurse" FontSize="16"                      Foreground="#0f754f" Margin="10 0 0 0" FontWeight="Bold" RelativePanel.RightOf="imgPurse" />
+                            <TextBlock x:ConnectionId='13' x:Name="balancePurse" FontSize="16"                         Margin="10 10 0 0" RelativePanel.Below="namePurse" RelativePanel.RightOf="imgPurse" />
+                            <TextBlock x:ConnectionId='14' x:Name="abbrPurse" FontSize="16"                                       Margin="10 10 0 0" RelativePanel.RightOf="balancePurse" RelativePanel.Below="namePurse" />
+                        </RelativePanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Resources>
+                <MenuFlyout x:ConnectionId='15' x:Name="purseListFlyoutMenu">
+                    <MenuFlyout.Items >
+                        <MenuFlyoutItem x:ConnectionId='16'  x:Name="Edit" Text="Изменить"                     />
+                        <MenuFlyoutItem x:ConnectionId='17'  x:Name="Delete" Text="Удалить"                       />
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
+        </ListView>
+        <TextBlock x:ConnectionId='10' x:Name="errorText" Foreground="#c9302c" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 0 0 10" />
+
+    </Grid>
+</Page>
+

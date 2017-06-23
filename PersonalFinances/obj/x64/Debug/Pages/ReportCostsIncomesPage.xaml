@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.ReportCostsIncomesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="BtnShowFilters" Icon="Filter"  Label="Фильтр" HorizontalAlignment="Right"
+                                                       />
+            <FlyoutBase.AttachedFlyout>
+                <Flyout x:ConnectionId='2' x:Name="filterFlyoutMenu">
+                    <StackPanel>
+                        <StackPanel Margin="10 10 0 10">
+                            <TextBlock Text="Счет" FontWeight="Bold"/>
+                            <CheckBox x:ConnectionId='7' x:Name="isAllPurse" IsChecked="False" Content="Все счета" 
+                                          Margin="0 0 0 0"                           />
+                            <ComboBox x:ConnectionId='8' x:Name="purseListCB" DisplayMemberPath="Name" SelectedValuePath="Id"
+                                                                                           PlaceholderText="Выберите счет..."/>
+                        </StackPanel>
+                        <StackPanel Margin="10 10 0 10">
+                            <TextBlock Text="Период" FontWeight="Bold"/>
+                            <CheckBox x:ConnectionId='4' x:Name="isAllDate" IsChecked="False" Content="За все время"
+                                                                   />
+                            <CalendarDatePicker x:ConnectionId='5' x:Name="dateStart"  Margin="0 10 0 0" 
+                                                                                         PlaceholderText="C..."/>
+                            <CalendarDatePicker x:ConnectionId='6' x:Name="datefinish" Margin="0 10 0 0"
+                                                                                          PlaceholderText="По..."/>
+                        </StackPanel>
+                        <AppBarButton x:ConnectionId='3' x:Name="buttonAccept" Icon="Accept" Label="Применить" HorizontalAlignment="Center"
+                                          Margin="10"                           />
+                    </StackPanel>
+                </Flyout>
+            </FlyoutBase.AttachedFlyout>
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    <Grid Background="#efebec">
+        <Pivot x:ConnectionId='9' x:Name="rootPivot">
+            <PivotItem Header="Диаграмма">
+                <Charting:Chart x:ConnectionId='13' x:Name="PieChart" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Margin="20 0 20 20" Height="300" Width="300" >
+                    <Charting:PieSeries Title="Расходы/Доходы" Margin="0"  IndependentValuePath="Name" DependentValuePath="Summa"/>
+                </Charting:Chart>
+            </PivotItem>
+            <PivotItem Header="Гистограмма">
+                <Charting:Chart x:ConnectionId='12' x:Name="ColumnChart" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Margin="20 0 20 20" Height="300" Width="300" >
+                    <Charting:ColumnSeries Title="Расходы/Доходы" Margin="0"  IndependentValuePath="Name" DependentValuePath="Summa"/>
+                </Charting:Chart>
+            </PivotItem>
+        </Pivot>
+        <RelativePanel VerticalAlignment="Bottom">
+            <TextBlock x:ConnectionId='10' x:Name="amountSumma" Margin="10 0 0 0" Foreground="#0f754f" />
+            <TextBlock x:ConnectionId='11' x:Name="errorText" Foreground="#c9302c" RelativePanel.Below="amountSumma"
+                       Visibility="Collapsed" Margin="10 0 0 0" />
+        </RelativePanel>
+    </Grid>
+</Page>
+

@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.AccumulationAddEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="BtnOk" Icon="Accept" Label="Готово" HorizontalAlignment="Right"
+                          Click="BtnOk_Click" />
+            <AppBarButton x:Name="BtnCancel" Icon="Cancel" Label="Отмена" HorizontalAlignment="Right"
+                          Click="BtnCancel_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <ScrollViewer>
+        <Grid Background="#efebec">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Row="0" x:Name="headerBlock" Text = "Добавить цель"
+                           Style="{ThemeResource HeaderTextBlockStyle}" Foreground="#0f754f" Margin="10 0 0 0" />
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Название"  Margin="10 0 0 0" />
+                <TextBox x:Name="accumNameBox" IsSpellCheckEnabled="True" Margin="10"
+                     PlaceholderText="Введите имя..." TabIndex="1" />
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock x:Name="curTextBlock" Text="Валюта" Margin="10 0 0 0" />
+                <ComboBox x:Name="currencyList" DisplayMemberPath="Abbreviation" SelectedValuePath="Id"
+                        Margin="10" PlaceholderText="Выберите валюту" TabIndex="2" />
+            </StackPanel>
+            <StackPanel Grid.Row="3">
+                <TextBlock Text="Существующая сумма" Margin="10 0 0 0"/>
+                <TextBox VerticalAlignment="Center" x:Name="accumCurrentSum" Margin="10" PlaceholderText="Введите существующую сумму ..."
+                     InputScope="Digits" TabIndex="2" />
+            </StackPanel>
+            <StackPanel Grid.Row="4">
+                <TextBlock Text="Нужная сумма" Margin="10 0 0 0"/>
+                <TextBox VerticalAlignment="Center" x:Name="accumFinalSum" Margin="10" PlaceholderText="Введите нужную сумму ..."
+                     InputScope="Digits" TabIndex="2" />
+            </StackPanel>
+            <TextBlock Grid.Row="5" x:Name="errorText" VerticalAlignment="Bottom" Foreground="#c9302c" Margin="10 0 0 10"/>
+        </Grid>
+    </ScrollViewer>
+</Page>

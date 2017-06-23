@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.CurrencyPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#efebec">
+        <ScrollViewer HorizontalAlignment="Stretch">
+            <StackPanel HorizontalAlignment="Stretch" >
+                <TextBlock Text="CurrencyPage" FontSize="40" HorizontalAlignment="Left"/>
+                <ListView x:ConnectionId='1' x:Name="currencyList" HorizontalAlignment="Center">
+                        <ListView.ItemTemplate >
+                            <DataTemplate                             >
+                            <StackPanel x:Name="stackPanelCur" Background="#EDDECF" HorizontalAlignment="Center" Width="{Binding}" MinWidth="400" Margin="10 10 10 10" >
+                                <TextBlock Text="{Binding Id}" />
+                                <RelativePanel x:Name="relPanel">
+                                    <TextBlock Text="Abbrev: " RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
+                                    <TextBlock Text="{Binding Abbreviation}"  FontSize="26" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" />
+                                </RelativePanel>
+                                <TextBlock Text="{Binding CurScale}" FontSize="15" HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding CurIdNatBank}" FontSize="15" HorizontalAlignment="Right" />
+                            </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
+

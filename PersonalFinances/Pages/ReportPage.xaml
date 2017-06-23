@@ -1,0 +1,111 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.ReportPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="SortCosts" Icon="Sort" Label="Сортировать" HorizontalAlignment="Right" 
+                          Click="SortCosts_Click"/>
+            <AppBarButton x:Name="BtnShowFilters" Icon="Filter"  Label="Фильтр" HorizontalAlignment="Right"
+                           Click="BtnShowFilters_Click" />
+            <CommandBar.Resources>
+                <MenuFlyout x:Name="sortFlyotMenu">
+                    <ToggleMenuFlyoutItem x:Name="sortCostsByDateDesc" IsChecked="False" Text="По дате (↓)"
+                                          Click="sortCostsByDateDesc_Click"/>
+                    <ToggleMenuFlyoutItem x:Name="sortCostsByDate" IsChecked="False" Text="По дате (↑)"
+                                          Click="sortCostsByDate_Click"/>
+                    <ToggleMenuFlyoutItem x:Name="sortCostsBySymmaDesc" IsChecked="False" Text="По сумме (↓)"
+                                          Click="sortCostsBySymmaDesc_Click"/>
+                    <ToggleMenuFlyoutItem x:Name="sortCostsBySumma" IsChecked="False" Text="По сумме (↑)"
+                                          Click="sortCostsBySumma_Click"/>
+
+                </MenuFlyout>
+
+            </CommandBar.Resources>
+
+            <FlyoutBase.AttachedFlyout>
+                <Flyout x:Name="filterFlyoutMenu">
+                    <StackPanel>
+                        <StackPanel Margin="10 10 0 10">
+                            <TextBlock Text="Счет" FontWeight="Bold"/>
+                            <CheckBox x:Name="isAllPurse" IsChecked="False" Content="Все счета" 
+                                          Margin="0 0 0 0" Tapped="isAllPurse_Tapped"/>
+                            <ComboBox x:Name="purseListCB" DisplayMemberPath="Name" SelectedValuePath="Id"
+                                          SelectionChanged="purseListCB_SelectionChanged" PlaceholderText="Выберите счет..."/>
+                        </StackPanel>
+                        <StackPanel Margin="10 10 0 10">
+                            <TextBlock Text="Категория расхода" FontWeight="Bold"/>
+                            <CheckBox x:Name="isAllCostsCategories" IsChecked="False"
+                                          Content="Все категории" Tapped="isAllCostsCategories_Tapped" />
+                            <ComboBox x:Name="costsCategoriesCB" DisplayMemberPath="Name" SelectedValuePath="Id"
+                                          SelectionChanged="costsCategoriesCB_SelectionChanged" PlaceholderText="Выберите категорию..."/>
+                        </StackPanel>
+                        <StackPanel Margin="10 10 0 10">
+                            <TextBlock Text="Период" FontWeight="Bold"/>
+                            <CheckBox x:Name="isAllDate" IsChecked="False" Content="За все время"
+                                          Tapped="isAllDate_Tapped"/>
+                            <CalendarDatePicker x:Name="dateStart"  Margin="0 10 0 0" 
+                                                    DateChanged="dateStart_DateChanged" PlaceholderText="C..."/>
+                            <CalendarDatePicker x:Name="datefinish" Margin="0 10 0 0"
+                                                    DateChanged="datefinish_DateChanged" PlaceholderText="По..."/>
+                        </StackPanel>
+                        <AppBarButton x:Name="buttonAccept" Icon="Accept" Label="Применить" HorizontalAlignment="Center"
+                                          Margin="10" Click="buttonAccept_Click"/>
+                    </StackPanel>
+                </Flyout>
+            </FlyoutBase.AttachedFlyout>
+        </CommandBar>
+        
+    </Page.BottomAppBar>
+
+    <Grid Background="#efebec">
+
+        <Pivot x:Name="rootPivot" SelectionChanged="rootPivot_SelectionChanged">
+            <PivotItem Header="Список">
+                <ListView x:Name="costList" Margin="0 10 10 30" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:Costs">
+                            <StackPanel Margin="0 0 0 10">
+                                <RelativePanel>
+                                    <Image x:Name="imgCost" Height="40" Width="40" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Cost.png"
+                                           RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                    <TextBlock x:Name="nameCostategor" FontSize="20" Text="{x:Bind CostCategories.Name}" RelativePanel.RightOf="imgCost"
+                                               Foreground="#0f754f"  Margin="15 0 0 0" FontWeight="Bold" />
+                                    <TextBlock x:Name="nameSumma" FontSize="16" Text="{x:Bind Summa}"  Margin="15 0 0 0"
+                                               RelativePanel.RightOf="imgCost" Foreground="#c9302c" RelativePanel.Below="nameCostategor" />
+                                    <TextBlock x:Name="nameCurAbbrev" FontSize="16" Text="{x:Bind Currency.Abbreviation}"  Margin="5 0 0 0"
+                                               RelativePanel.RightOf="nameSumma" RelativePanel.Below="nameCostategor" />
+                                    <TextBlock Text="{x:Bind DateOperation}" RelativePanel.RightOf="nameCostategor" Margin="15 5 0 0"/>
+                                </RelativePanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="Диаграмма">
+                <Charting:Chart x:Name="PieChartCosts" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Margin="20 0 20 20" Height="300" Width="300" >
+                    <Charting:PieSeries Title="Расходы" Margin="0"  IndependentValuePath="CostCategoriesName" DependentValuePath="Summa"/>
+                </Charting:Chart>
+            </PivotItem>
+            <PivotItem Header="Гистограмма">
+                <Charting:Chart x:Name="ColumnChartCosts" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Margin="20 0 20 20" Height="300" Width="300" >
+                    <Charting:ColumnSeries Title="Расходы" Margin="0"  IndependentValuePath="CostCategoriesName" DependentValuePath="Summa"/>
+                </Charting:Chart>
+            </PivotItem>
+        </Pivot>
+        <RelativePanel VerticalAlignment="Bottom">
+            <TextBlock x:Name="amountSumma" Margin="10 0 0 0" Foreground="#0f754f" />
+            <TextBlock x:Name="errorText" Foreground="#c9302c" RelativePanel.Below="amountSumma"
+                       Visibility="Collapsed" Margin="10 0 0 0" />
+        </RelativePanel>
+        
+    </Grid>
+</Page>

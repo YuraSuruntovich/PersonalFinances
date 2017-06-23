@@ -1,0 +1,105 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.DisplacementAddEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="BtnOk" Icon="Accept" Label="Готово" HorizontalAlignment="Right"
+                                              />
+            <AppBarButton x:ConnectionId='2' x:Name="BtnCancel" Icon="Cancel" Label="Отмена" HorizontalAlignment="Right"
+                                                  />
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <ScrollViewer>
+        <Grid Background="#efebec">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <TextBlock x:ConnectionId='3' Grid.Row="0" x:Name="headerBlock" Text = "Создать перемещение"
+                           Style="{ThemeResource HeaderTextBlockStyle}" Foreground="#0f754f" Margin="10 0 0 0" />
+                <StackPanel Grid.Row="1">
+                    <TextBlock Text="Из" Margin="10 0 0 0" />
+                    <RelativePanel>
+                        <ComboBox x:ConnectionId='25' x:Name="purse_1ListCB" DisplayMemberPath="Name" SelectedValuePath="Id"
+                        Margin="10" PlaceholderText="Выберите кошелек"                                                  
+                                  RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        <AppBarButton x:ConnectionId='26' x:Name="addNewPurseButton1" Icon="Add" RelativePanel.RightOf="purse_1ListCB" 
+                                                                    RelativePanel.AlignTopWithPanel="True"
+                                  Height="40" Width="30"/>
+                    </RelativePanel>
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+                    <TextBlock Text="В" Margin="10 0 0 0" />
+                    <RelativePanel>
+                        <ComboBox x:ConnectionId='23' x:Name="purse_2ListCB" DisplayMemberPath="Name" SelectedValuePath="Id"
+                        Margin="10" PlaceholderText="Выберите кошелек"                                                    />
+                        <AppBarButton x:ConnectionId='24' x:Name="addNewPurseButton2" Icon="Add" RelativePanel.RightOf="purse_2ListCB" 
+                                                                    RelativePanel.AlignTopWithPanel="True"
+                                  Height="40" Width="30"/>
+                    </RelativePanel>
+                </StackPanel>
+                <StackPanel Grid.Row="3">
+                    <TextBlock Text="Сумма" Margin="10 0 0 0" />
+                    <RelativePanel>
+                        <TextBox x:ConnectionId='21' x:Name="summaDispl" PlaceholderText="Введите сумму..."  Margin="10" InputScope="Digits" />
+                        <TextBlock x:ConnectionId='22' x:Name="summaAbrev" RelativePanel.RightOf="summaDispl" Foreground="#0f754f" 
+                           RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                    </RelativePanel>
+                </StackPanel>
+                <StackPanel Grid.Row="4">
+                    <TextBlock Text="Дата платежа" Margin="10 10 10 0" />
+                    <CalendarDatePicker x:ConnectionId='20' x:Name="dateDispl" Margin="10 5 10 10" PlaceholderText="Выберите дату" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel x:ConnectionId='4' x:Name="CurrencesRates" Visibility="Collapsed" Grid.Row="5">
+                    <TextBlock  Text="Курсы валют" Margin="10 0 0 0" />
+                    <StackPanel x:ConnectionId='6' x:Name="part1" Margin="20 0 0 0">
+                        <RelativePanel>
+                            <TextBlock x:ConnectionId='14' x:Name="digit1" Text="1 " Margin="10" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                            <TextBlock x:ConnectionId='15' x:Name="abbrevBlock1" RelativePanel.RightOf="digit1" Margin="10" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                            <TextBox x:ConnectionId='16' x:Name="rate1" PlaceholderText="Введите курс..." Margin="10"
+                         RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="abbrevBlock1"
+                         InputScope="Digits"/>
+                            <TextBlock x:ConnectionId='17' x:Name="nameByn1" Text="BYN" Margin="10" RelativePanel.RightOf="rate1" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                            <AppBarButton x:ConnectionId='18' x:Name="getOfficialRate_1" Icon="World" RelativePanel.RightOf="nameByn1" 
+                              Height="40" Width="30"                                />
+                            <ProgressRing x:ConnectionId='19' x:Name="ring1" IsActive="False" Height="40" Width="30" 
+                                          RelativePanel.RightOf="getOfficialRate_1" 
+                                          RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        </RelativePanel>
+                    </StackPanel>
+                    <StackPanel x:ConnectionId='7' x:Name="part2" Margin="20 0 0 0">
+                        <RelativePanel>
+                            <TextBlock x:ConnectionId='8' x:Name="digit2" Text="1 " Margin="10" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                            <TextBlock x:ConnectionId='9' x:Name="abbrevBlock2" RelativePanel.RightOf="digit2" Margin="10" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                            <TextBox x:ConnectionId='10' x:Name="rate2" PlaceholderText="Введите курс..." Margin="10"
+                         RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="abbrevBlock2" 
+                         InputScope="Digits"/>
+                            <TextBlock x:ConnectionId='11' x:Name="nameByn2" Text="BYN" Margin="10" RelativePanel.RightOf="rate2" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                            <AppBarButton x:ConnectionId='12' x:Name="getOfficialRate_2" Icon="World" RelativePanel.RightOf="nameByn2" 
+                              Height="40" Width="30"                                />
+                            <ProgressRing x:ConnectionId='13' x:Name="ring2" IsActive="False" Height="40" Width="30" 
+                                          RelativePanel.RightOf="getOfficialRate_2" 
+                                          RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        </RelativePanel>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock x:ConnectionId='5' Grid.Row="6" x:Name="errorText" Foreground="#c9302c" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 0 0 10" />
+            </StackPanel>
+
+        </Grid>
+    </ScrollViewer>
+</Page>
+

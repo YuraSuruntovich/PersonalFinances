@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.CurrencyEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="BtnOk" Icon="Accept" Label="Готово" HorizontalAlignment="Right"
+                                              />
+            <AppBarButton x:ConnectionId='2' x:Name="BtnCancel" Icon="Cancel" Label="Отмена" HorizontalAlignment="Right"
+                                                  />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="#efebec">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:ConnectionId='3' Grid.Row="0" x:Name="headerBlock" Text = "Редактировать валюту"
+                           Style="{ThemeResource HeaderTextBlockStyle}" Foreground="#0f754f" Margin="10 0 0 0" />
+        <StackPanel Grid.Row="1">
+            <RelativePanel>
+                <TextBlock x:ConnectionId='5' x:Name="rateBlock" Text="Курс валюты" Margin="10" />
+                <TextBlock x:ConnectionId='6' x:Name="scaleCur" RelativePanel.Below="rateBlock" Margin="10 15 0 0" />
+                <TextBlock x:ConnectionId='7' x:Name="abrevCur" RelativePanel.Below="rateBlock" 
+                           RelativePanel.RightOf="scaleCur" Margin="10 15 0 0"/>
+                <TextBox x:ConnectionId='8' x:Name="rateBox" PlaceholderText="Введите курс..." 
+                     RelativePanel.Below="rateBlock" Margin="10" InputScope="Digits" RelativePanel.RightOf="abrevCur" />
+                <TextBlock x:ConnectionId='9' x:Name="nameByn1" Text="BYN" Margin="10 15 10 0" RelativePanel.RightOf="rateBox"
+                           RelativePanel.Below="rateBlock"/>
+                <AppBarButton x:ConnectionId='10' x:Name="getOfficialRate_1" Icon="World" RelativePanel.RightOf="nameByn1" 
+                              Height="40" Width="30"                                 RelativePanel.Below="rateBlock"/>
+                <ProgressRing x:ConnectionId='11' x:Name="ring1" IsActive="False" Height="40" Width="30" 
+                                          RelativePanel.RightOf="getOfficialRate_1" RelativePanel.Below="rateBlock"/>
+            </RelativePanel>
+        </StackPanel>
+        <TextBlock x:ConnectionId='4' Grid.Row="2" x:Name="errorText" Foreground="#c9302c" />
+
+    </Grid>
+</Page>
+

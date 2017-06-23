@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.PursePageAddEdit"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="BtnOk" Icon="Accept" Label="Готово" HorizontalAlignment="Right"
+                                              />
+            <AppBarButton x:ConnectionId='2' x:Name="BtnCancel" Icon="Cancel" Label="Отмена" HorizontalAlignment="Right"
+                                                  />
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <ScrollViewer>
+        <Grid Background="#efebec">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <TextBlock x:ConnectionId='3' Grid.Row="0" x:Name="headerBlock" Text = "Добавить счет"
+                           Style="{ThemeResource HeaderTextBlockStyle}" Foreground="#0f754f" Margin="10 0 0 0" />
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Название счета"  Margin="10 0 0 0" />
+                <TextBox x:ConnectionId='8' x:Name="purseNameBox" IsSpellCheckEnabled="True" Margin="10"
+                     PlaceholderText="Введите название счета..." TabIndex="1" />
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock Text="Баланс" Margin="10 0 0 0"/>
+                <TextBox x:ConnectionId='7' VerticalAlignment="Center" x:Name="purseBalanceBox" Margin="10" PlaceholderText="Введите баланс..."
+                     InputScope="Digits" TabIndex="2" />
+            </StackPanel>
+            <StackPanel Grid.Row="3">
+                <TextBlock x:ConnectionId='5' Grid.Row="5" x:Name="curTextBlock" Text="Валюта" Margin="10 0 0 0" />
+                <ComboBox x:ConnectionId='6' Grid.Row="6" x:Name="currencyList" DisplayMemberPath="Abbreviation" SelectedValuePath="Id"
+                        Margin="10" PlaceholderText="Выберите валюту" TabIndex="3" />
+            </StackPanel>
+            <TextBlock x:ConnectionId='4' Grid.Row="5" x:Name="errorText" VerticalAlignment="Bottom" Foreground="#c9302c" Margin="10 0 0 10"/>
+        </Grid>
+    </ScrollViewer>
+    
+</Page>
+

@@ -1,0 +1,64 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="PersonalFinances.Pages.CostAddEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"                            >
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='2' x:Name="BtnOk" Icon="Accept" Label="Готово" HorizontalAlignment="Right"
+                                              />
+            <AppBarButton x:ConnectionId='3' x:Name="BtnCancel" Icon="Cancel" Label="Отмена" HorizontalAlignment="Right"
+                                                  />
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <ScrollViewer>
+        <Grid Background="#efebec">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:ConnectionId='4' Grid.Row="0" x:Name="headerBlock" Text = "Создать платеж"
+                               Style="{ThemeResource HeaderTextBlockStyle}" Foreground="#0f754f" Margin="10 0 0 0" />
+
+            <StackPanel Grid.Row="1">
+                <TextBlock Grid.Row="1" Text="Счет" Margin="10 10 10 0" />
+                <RelativePanel Grid.Row="2">
+                    <ComboBox x:ConnectionId='13' x:Name="purseListCB" DisplayMemberPath="Name" SelectedValuePath="Id"
+                            Margin="10 5 10 0" PlaceholderText="Выберите счет" RelativePanel.AlignLeftWithPanel="True"                                                />
+                    <AppBarButton x:ConnectionId='14' x:Name="addPurseButton" Icon="Add" RelativePanel.RightOf="purseListCB"
+                                                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                                  Height="40" Width="30" />
+                </RelativePanel>
+                <TextBlock Grid.Row="3" Text="Сумма патежа" Margin="10 10 10 0" />
+                <RelativePanel Grid.Row="4" VerticalAlignment="Center">
+                    <TextBox x:ConnectionId='11' x:Name="costSum" Margin="10 5 10 0" PlaceholderText="Введите сумму платежа..." 
+                             InputScope="Digits" RelativePanel.AlignLeftWithPanel="True" />
+                    <TextBlock x:ConnectionId='12' x:Name="curAbbrev" RelativePanel.RightOf="costSum" Foreground="#0f754f"
+                               RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                </RelativePanel>
+                <TextBlock Grid.Row="5" Text="Дата платежа" Margin="10 10 10 0" />
+                <CalendarDatePicker x:ConnectionId='6' Grid.Row="6" x:Name="dateCost" Margin="10 5 10 0" PlaceholderText="Выберите дату платежа" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="7" Text="Категория расходов" Margin="10 10 10 0" VerticalAlignment="Center" />
+                <RelativePanel Grid.Row="8">
+                    <ComboBox x:ConnectionId='9' x:Name="costCategorListCB" DisplayMemberPath="Name" SelectedValuePath="Id" VerticalAlignment="Center"
+                            Margin="10 5 10 0" PlaceholderText="Выберите категорию расходов" RelativePanel.AlignLeftWithPanel="True" />
+                    <AppBarButton x:ConnectionId='10' x:Name="addCostCategorButton" Icon="Add" RelativePanel.RightOf="costCategorListCB" 
+                                                                     RelativePanel.AlignVerticalCenterWithPanel="True"
+                                  Height="40" Width="30"/>
+                </RelativePanel>
+                <TextBlock x:ConnectionId='7' Grid.Row="9" x:Name="Comment" Text="Комментарий" Margin="10 5 10 0" VerticalAlignment="Center"/>
+                <TextBox x:ConnectionId='8' Grid.Row="10" x:Name="costComment" AutomationProperties.Name="Comment" Margin="10 5 10 10" PlaceholderText="Введите комментарий..." 
+                             MaxLength="20" IsSpellCheckEnabled="True" VerticalAlignment="Top" UseSystemFocusVisuals="True"/>
+            </StackPanel>
+            <TextBlock x:ConnectionId='5' Grid.Row="11" x:Name="errorText" Foreground="#c9302c" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 0 0 10" />
+        </Grid>
+    </ScrollViewer>
+</Page>
+

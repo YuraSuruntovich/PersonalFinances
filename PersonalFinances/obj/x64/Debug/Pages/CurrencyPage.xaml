@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.CurrencyPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#efebec">
+        <ListView x:ConnectionId='1' x:Name="currencyList" Margin="10"                                                                      >
+            <ListView.ItemTemplate>
+                <DataTemplate                            >
+                    <StackPanel x:ConnectionId='2' x:Name="stackPaneCurrency">
+                        <RelativePanel>
+                            <Image x:Name="imgCurrency" Height="40" Width="40" Margin="0 5 0 0"
+                                   Source="ms-appx:///Assets/Images/summa.png" RelativePanel.AlignLeftWithPanel="True"/>
+                            <TextBlock x:ConnectionId='3' x:Name="curScale"                          RelativePanel.RightOf="imgCurrency"
+                                       Margin="10 10 5 10" FontSize="16" />
+                            <TextBlock x:ConnectionId='4' x:Name="curAbrev"                              RelativePanel.RightOf="curScale"
+                                       Margin="0 10 10 10" Foreground="#0f754f" FontSize="16" />
+                            <TextBlock x:Name="equally" Text="=" Margin="10" RelativePanel.RightOf="curAbrev" 
+                                       FontSize="16"/>
+                            <TextBlock x:ConnectionId='5' x:Name="curRate"                      Margin="10 10 5 10" RelativePanel.RightOf="equally"
+                                       FontSize="16"/>
+                            <TextBlock Text="BYN" Margin="0 10 10 10" Foreground="#0f754f" RelativePanel.RightOf="curRate"
+                                       FontSize="16"/>
+                        </RelativePanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Resources>
+                <MenuFlyout x:ConnectionId='6' x:Name="currencyListFlyoutMenu">
+                    <MenuFlyout.Items >
+                        <MenuFlyoutItem x:ConnectionId='7'  x:Name="Edit" Text="Изменить"                    />
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
+        </ListView>
+    </Grid>
+</Page>
+

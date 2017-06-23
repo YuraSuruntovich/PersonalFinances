@@ -1,0 +1,235 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.OperationsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="BtnAddCost" Icon="Remove"  Label="Добавить расход" HorizontalAlignment="Right"
+                          Click="BtnAddCost_Click" />
+            <AppBarButton x:Name="BtnAddIncome" Icon="Add"  Label="Добавить доход" HorizontalAlignment="Right"
+                          Click="BtnAddIncome_Click" />
+            <AppBarButton x:Name="BtnAddDisplacement" Icon="Switch"  Label="Добавить перемещение" HorizontalAlignment="Right"
+                         Click="BtnAddDisplacement_Click" />
+            <AppBarButton x:Name="SortOperations" Icon="Sort" Label="Сортировать" HorizontalAlignment="Right" 
+                          Click="SortOperation_Click"/>
+            <CommandBar.Resources>
+                <MenuFlyout x:Name="sortFlyotMenu">
+                    <ToggleMenuFlyoutItem x:Name="sortOperationsByDateDesc" IsChecked="False" Text="По дате (↓)"
+                                          Click="sortOperationsByDateDesc_Click"/>
+                    <ToggleMenuFlyoutItem x:Name="sortOperationsByDate" IsChecked="False" Text="По дате (↑)"
+                                          Click="sortOperationsByDate_Click"/>
+                    <ToggleMenuFlyoutItem x:Name="sortOperationsBySymmaDesc" IsChecked="False" Text="По сумме (↓)"
+                                          Click="sortOperationsBySymmaDesc_Click"/>
+                    <ToggleMenuFlyoutItem x:Name="sortOperationsBySumma" IsChecked="False" Text="По сумме (↑)"
+                                          Click="sortOperationsBySumma_Click"/>
+                    
+                </MenuFlyout>
+            </CommandBar.Resources>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="#efebec">
+        <Pivot x:Name="rootPivot" >
+            <PivotItem Header="Расходы">
+                <RelativePanel>
+                    <ListView x:Name="costList" Margin="0 10 10 10" RelativePanel.AlignLeftWithPanel="True" SelectionChanged="costList_SelectionChanged"
+                              Holding="costList_Holding" RightTapped="costList_RightTapped" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:Costs">
+                                <StackPanel Margin="0 0 0 10">
+                                    <RelativePanel>
+                                        <Image x:Name="imgCost" Height="40" Width="40" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Cost.png"
+                                           RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                        <TextBlock x:Name="nameCostategor" FontSize="20" Text="{x:Bind CostCategories.Name}" RelativePanel.RightOf="imgCost"
+                                               Foreground="#0f754f"  Margin="15 0 0 0" FontWeight="Bold" />
+                                        <TextBlock x:Name="nameSumma" FontSize="16" Text="{x:Bind Summa}"  Margin="15 0 0 0"
+                                               RelativePanel.RightOf="imgCost" Foreground="#c9302c" RelativePanel.Below="nameCostategor" />
+                                        <TextBlock x:Name="nameCurAbbrev" FontSize="16" Text="{x:Bind Currency.Abbreviation}"  Margin="5 0 0 0"
+                                               RelativePanel.RightOf="nameSumma" RelativePanel.Below="nameCostategor" />
+                                        <TextBlock Text="{x:Bind DateOperation}" RelativePanel.RightOf="nameCostategor" Margin="15 5 0 0"/>
+                                    </RelativePanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Resources>
+                            <MenuFlyout x:Name="costsFlyoutMenu">
+                                <MenuFlyout.Items >
+                                    <MenuFlyoutItem  x:Name="EditCost" Text="Изменить" Click="EditCost_Click" />
+                                    <MenuFlyoutItem  x:Name="DeleteCost" Text="Удалить" Click="DeleteCost_Click"   />
+                                </MenuFlyout.Items>
+                            </MenuFlyout>
+                        </ListView.Resources>
+                    </ListView>
+
+                    <StackPanel x:Name="detailPanel" RelativePanel.RightOf="costList"
+                                Visibility="Collapsed" Background="#d6dde3" >
+                        <RelativePanel>
+                            <Image x:Name="imgPurse" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/finance.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="purseDPC" RelativePanel.RightOf="imgPurse" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        </RelativePanel>
+                        <RelativePanel>
+                            <Image x:Name="imgSumma" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/summa.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="summaDPC" Margin="10 5 5 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgSumma" />
+                            <TextBlock x:Name="abrevDPC" Margin="1 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="summaDPC" />
+                        </RelativePanel>
+                        <RelativePanel>
+                            <Image x:Name="imgDate" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Date.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="dateOperatDPC" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgDate" />                            
+                        </RelativePanel>
+                        <RelativePanel>
+                            <Image x:Name="imgCategor" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Categories.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="costCategorDPC" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgCategor" />                            
+                        </RelativePanel>
+                        <RelativePanel>
+                            <Image x:Name="imgComment" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Comment.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="commentDPC" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgComment"/>
+                        </RelativePanel>
+                    </StackPanel>
+                </RelativePanel>
+            </PivotItem>
+
+<!--***************************************************************************************************************************-->
+            <PivotItem Header="Доходы">
+                <RelativePanel>
+                    <ListView x:Name="incomeList" Margin="0 10 10 10" RelativePanel.AlignLeftWithPanel="True"
+                              SelectionChanged="incomeList_SelectionChanged" 
+                              Holding="incomeList_Holding" RightTapped="incomeList_RightTapped">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:Income">
+                                <StackPanel Margin="0 0 0 10">
+                                    <RelativePanel>
+                                        <Image x:Name="imgIncome" Height="40" Width="40" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Income.png"
+                                           RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                        <TextBlock x:Name="nameCostategor" FontSize="20" Text="{x:Bind SourceOfIncome.Name}" RelativePanel.RightOf="imgIncome"
+                                               Foreground="#0f754f"  Margin="15 0 0 0" FontWeight="Bold" />
+                                        <TextBlock x:Name="nameSumma" FontSize="16" Text="{x:Bind Summa}"  Margin="15 0 0 0"
+                                               RelativePanel.RightOf="imgIncome" Foreground="#0f754f" RelativePanel.Below="nameCostategor" />
+                                        <TextBlock x:Name="nameCurAbbrev" FontSize="16" Text="{x:Bind Currency.Abbreviation}"  Margin="5 0 0 0"
+                                               RelativePanel.RightOf="nameSumma" RelativePanel.Below="nameCostategor" />
+                                        <TextBlock Text="{x:Bind DateOperation}" RelativePanel.RightOf="nameCostategor" Margin="15 5 0 0"/>
+                                    </RelativePanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Resources>
+                            <MenuFlyout x:Name="incomesFlyoutMenu">
+                                <MenuFlyout.Items >
+                                    <MenuFlyoutItem  x:Name="EditIncome" Text="Изменить" Click="EditIncome_Click"/>
+                                    <MenuFlyoutItem  x:Name="DeleteIncome" Text="Удалить" Click="DeleteIncome_Click"/>
+                                </MenuFlyout.Items>
+                            </MenuFlyout>
+                        </ListView.Resources>
+                    </ListView>
+
+                    <StackPanel x:Name="detailPanelIncome" RelativePanel.RightOf="incomeList"
+                                Visibility="Collapsed" Background="#d6dde3" >
+                        <RelativePanel>
+                            <Image x:Name="imgPurseI" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/finance.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="purseDPI" RelativePanel.RightOf="imgPurseI" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True"/>
+                        </RelativePanel>
+                        <RelativePanel>
+                            <Image x:Name="imgSummaI" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/summa.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="summaDPI" Margin="10 5 5 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgSummaI" />
+                            <TextBlock x:Name="abrevDPI" Margin="1 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="summaDPI" />
+                        </RelativePanel>
+                        <RelativePanel>
+                            <Image x:Name="imgDateI" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Date.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="dateOperatDPI" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgDateI" />
+                        </RelativePanel>
+                        <RelativePanel>
+                            <Image x:Name="imgCategorI" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Categories.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="incomeCategorDPI" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgCategorI" />
+                        </RelativePanel>
+                        <RelativePanel>
+                            <Image x:Name="imgCommentI" Height="30" Width="30" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Comment.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="commentDPI" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgCommentI"/>
+                        </RelativePanel>
+                    </StackPanel>
+                </RelativePanel>
+            </PivotItem>
+            <!--***************************************************************************************************************************-->
+            <PivotItem Header="Перемещения">
+                <RelativePanel>
+                    <ListView x:Name="displacementList" Margin="0 10 10 10" RelativePanel.AlignLeftWithPanel="True"
+                              SelectionChanged="displacementList_SelectionChanged" 
+                              Holding="displacementList_Holding"  RightTapped="displacementList_RightTapped">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:Displacement">
+                                <StackPanel Margin="0 0 0 10">
+                                    <RelativePanel>
+                                        <Image x:Name="imgDisplacement" Height="40" Width="40" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Displacement.png"
+                                           RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" />
+                                        <TextBlock x:Name="dateDisplacement" Text="{x:Bind DateOperation}" RelativePanel.RightOf="imgDisplacement"  Margin="15 5 0 0"/>
+                                        <TextBlock x:Name="summaDispl" Text="{x:Bind SummaIncome}" Foreground="#ffbb00" Margin="15 0 0 0"
+                                                   RelativePanel.RightOf="imgDisplacement" RelativePanel.Below="dateDisplacement" />
+                                        <TextBlock x:Name="curAbrevDispl" Text="{x:Bind Currency.Abbreviation}" Margin="5 0 0 0"
+                                                   RelativePanel.RightOf="summaDispl" RelativePanel.Below="dateDisplacement" />
+                                    </RelativePanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Resources>
+                            <MenuFlyout x:Name="displacementFlyoutMenu">
+                                <MenuFlyout.Items >
+                                    <MenuFlyoutItem  x:Name="EditDisplacement" Text="Изменить" Click="EditDisplacement_Click"/>
+                                    <MenuFlyoutItem  x:Name="DeleteDisplacement" Text="Удалить" Click="DeleteDisplacement_Click"/>
+                                </MenuFlyout.Items>
+                            </MenuFlyout>
+                        </ListView.Resources>
+                    </ListView>
+
+                    <StackPanel x:Name="detailPanelDisplacement" RelativePanel.RightOf="displacementList"
+                                RelativePanel.AlignRightWithPanel="True" Visibility="Collapsed" Background="#d6dde3">
+                        <RelativePanel Margin="5 5 0 5">
+                            <Image x:Name="imgPurseOut" Height="40" Width="40" Source="ms-appx:///Assets/Images/PurseOut.png"
+                                   RelativePanel.AlignLeftWithPanel="True"/>
+                            <TextBlock x:Name="namePurseOutDisplacement" RelativePanel.RightOf="imgPurseOut" 
+                                       RelativePanel.AlignTopWithPanel="True" Margin="10 0 0 0"/>
+                            <TextBlock x:Name="summaOutDisplacement" Margin="15 0 0 0" RelativePanel.RightOf="imgPurseOut"
+                                       RelativePanel.Below="namePurseOutDisplacement" Foreground="#c9302c" />
+                            <TextBlock x:Name="curAbrevOutDisplacement" Margin="5 0 0 0" RelativePanel.RightOf="summaOutDisplacement"
+                                       RelativePanel.Below="namePurseOutDisplacement" />
+                        </RelativePanel>
+                        <RelativePanel Margin="5 5 0 5">
+                            <Image x:Name="imgPurseIncome" Height="40" Width="40" Source="ms-appx:///Assets/Images/PurseIncome.png"
+                                   RelativePanel.AlignLeftWithPanel="True"/>
+                            <TextBlock x:Name="namePurseIncomeDisplacement" RelativePanel.RightOf="imgPurseIncome" 
+                                       RelativePanel.AlignTopWithPanel="True" Margin="10 0 0 0"/>
+                            <TextBlock x:Name="summaIncomeDisplacement" Margin="15 0 0 0" RelativePanel.RightOf="imgPurseIncome"
+                                       RelativePanel.Below="namePurseIncomeDisplacement" Foreground="#0f754f"/>
+                            <TextBlock x:Name="curAbrevIncomeDisplacement" Margin="5 0 0 0" RelativePanel.RightOf="summaIncomeDisplacement"
+                                       RelativePanel.Below="namePurseIncomeDisplacement" />
+                        </RelativePanel>
+                        <RelativePanel Margin="5 5 0 5">
+                            <Image x:Name="imgDateDisplacement" Height="40" Width="40" Margin="0 5 0 0" Source="ms-appx:///Assets/Images/Date.png" RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="dateOperatDPDisplacement" Margin="10 5 20 0" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="imgDateDisplacement" />
+                        </RelativePanel>
+                        <RelativePanel x:Name="Rate1DPDisplacement" Margin="10 5 0 5">
+                            <TextBlock x:Name="name1Rate" Text="Курс" Foreground="#5e889e" FontWeight="Bold"
+                                       RelativePanel.AlignLeftWithPanel="True" Margin="0 0 10 0"/>
+                            <TextBlock x:Name="name1" Text="1" RelativePanel.RightOf="name1Rate"/>
+                            <TextBlock x:Name="curAbrevv1" RelativePanel.RightOf="name1" Margin="5 0 0 0"/>
+                            <TextBlock x:Name="name2" RelativePanel.RightOf="curAbrevv1" Margin="10 0 0 0"/>
+                            <TextBlock x:Name="curAbrevv2" Text="BYN" RelativePanel.RightOf="name2" Margin="5 0 0 0" />
+                        </RelativePanel>
+                        <RelativePanel x:Name="Rate2DPDisplacement" Margin="10 5 0 5">
+                            <TextBlock x:Name="nameRate2" Text="Курс" Foreground="#5e889e" FontWeight="Bold"
+                                       RelativePanel.AlignLeftWithPanel="True" Margin="0 0 10 0"/>
+                            <TextBlock x:Name="name3" Text="1" RelativePanel.RightOf="nameRate2"/>
+                            <TextBlock x:Name="curAbrevv3" RelativePanel.RightOf="name3" Margin="5 0 0 0"/>
+                            <TextBlock x:Name="name4" RelativePanel.RightOf="curAbrevv3" Margin="10 0 0 0"/>
+                            <TextBlock x:Name="curAbrevv4" Text="BYN" RelativePanel.RightOf="name4" Margin="5 0 0 0" />
+                        </RelativePanel>
+                    </StackPanel>
+                    
+                </RelativePanel>                
+            </PivotItem>
+
+        </Pivot>
+    </Grid>
+</Page>

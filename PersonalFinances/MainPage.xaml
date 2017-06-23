@@ -1,0 +1,101 @@
+﻿<Page
+    x:Class="PersonalFinances.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="#0f754f">
+
+    <Grid  Background="#0f754f">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <RelativePanel>
+            <Button x:Name="HamburgerButton" RelativePanel.AlignLeftWithPanel="True"
+                    FontFamily="Segoe MDL2 Assets" FontSize="24" Foreground="White"
+                    Content="&#xE700;" Click="HumbugerButton_Click" />
+            <TextBlock Name="TitleTextBlock" RelativePanel.RightOf="HamburgerButton" Foreground="White"
+                       FontSize="18" FontWeight="Bold" Margin="20 5 0 0" />
+        </RelativePanel>
+
+        <SplitView Name="splitViewMenu" Grid.Row="1" OpenPaneLength="200"
+                   DisplayMode="CompactInline" CompactPaneLength="44">
+            <SplitView.Pane>
+                <ScrollViewer>
+                    <ListBox  SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged" Background="#004f36" Foreground="White">
+                        <ListBoxItem Name="operations">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="24" FontFamily="Segoe MDL2 Assets" Text="&#xE719;" />
+                                <TextBlock FontSize="18" Text="Операции" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="report" Tapped="report_Tapped">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="24" FontFamily="Segoe MDL2 Assets" Text="&#xEADF;" />
+                                <RelativePanel>
+                                    <TextBlock x:Name="reportTextBlock" FontSize="18" Text="Очеты" Margin="10 0 0 0"/>
+                                    <TextBlock FontSize="18" FontFamily="Segoe MDL2 Assets" Text="&#xE015;" Margin="5 0 0 0"
+                                               RelativePanel.RightOf="reportTextBlock" RelativePanel.AlignBottomWithPanel="True"  />
+                                </RelativePanel>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="reportCosts" Visibility="Collapsed" Margin="5 0 0 0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="22" FontFamily="Segoe MDL2 Assets" Text="&#xE16D;" />
+                                <TextBlock FontSize="16" Text="Очет о расходах" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="reportIncomes" Visibility="Collapsed" Margin="5 0 0 0" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="22" FontFamily="Segoe MDL2 Assets" Text="&#xE16D;" />
+                                <TextBlock FontSize="16" Text="Очет о доходах" Margin="8 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="reportCostsIncomes" Visibility="Collapsed" Margin="5 0 0 0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="22" FontFamily="Segoe MDL2 Assets" Text="&#xE16D;" />
+                                <TextBlock FontSize="16" Text="Очет о р/д" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="accumulation">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="24" FontFamily="Segoe MDL2 Assets" Text="&#xE930;" />
+                                <TextBlock FontSize="18" Text="Цели" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="purse">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="24" FontFamily="Segoe MDL2 Assets" Text="&#xE82D;" />
+                                <TextBlock FontSize="18" Text="Счета" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="categories">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="24" FontFamily="Segoe MDL2 Assets" Text="&#xE138;" />
+                                <TextBlock FontSize="18" Text="Категории р/д" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="currency">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="24" FontFamily="Segoe MDL2 Assets" Text="&#xE825;" />
+                                <TextBlock FontSize="18" Text="Валюта" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Name="settings">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="24" FontFamily="Segoe MDL2 Assets" Text="&#xE115;" />
+                                <TextBlock FontSize="18" Text="Настройки" Margin="10 0 0 0"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+                </ScrollViewer>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame Name="myFrame" />
+            </SplitView.Content>
+        </SplitView>
+    </Grid>
+</Page>

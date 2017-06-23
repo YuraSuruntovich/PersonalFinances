@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.AccumulationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="BtnAddNew" Icon="Add" Label="Добавить цель" HorizontalAlignment="Right"
+                          Click="BtnAddNew_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="#efebec">
+        <ListView x:Name="accumulationList" Margin="10" Holding="accumulationList_Holding"
+                          RightTapped="accumulationList_RightTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Accumulation">
+                    <StackPanel>
+                        <RelativePanel>
+                            <Image x:Name="imgAccumul" Height="50" Width="50" Margin="0 5 0 0" 
+                                   Source="ms-appx:///Assets/Images/Accumulation.png" 
+                                   RelativePanel.AlignLeftWithPanel="True" />
+                            <TextBlock x:Name="nameAccum" FontSize="18" Text="{x:Bind Name}" 
+                                       Foreground="#0f754f" Margin="10 5 0 0" FontWeight="Bold"
+                                       RelativePanel.RightOf="imgAccumul" />
+                            <RelativePanel RelativePanel.Below="nameAccum" RelativePanel.RightOf="imgAccumul"
+                                           RelativePanel.AlignBottomWithPanel="True" Margin="0 5 0 0">
+                                <TextBlock x:Name="currentSum" Text="{x:Bind CurrentSumma}" Foreground="#ffbb00" 
+                                           Margin="10 0 10 0"/>
+                                <TextBlock x:Name="fr" Text="из" Margin="0 0 10 0" RelativePanel.RightOf="currentSum"/>
+                                <TextBlock x:Name="finalSum" Text="{x:Bind FinalSumma}" Foreground="#0f754f" 
+                                           RelativePanel.RightOf="fr" Margin="0 0 0 10"/>
+                                <TextBlock x:Name="curAbrevv" Text="{x:Bind Currency.Abbreviation}"
+                                           RelativePanel.RightOf="finalSum" Margin="5 0 0 0"/>
+                            </RelativePanel>
+                        </RelativePanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Resources>
+                <MenuFlyout x:Name="accumulationFlyoutMenu">
+                    <MenuFlyout.Items >
+                        <MenuFlyoutItem  x:Name="AddAccumulationOperation" Text="Добавить средства" Click="AddAccumulationOperation_Click" />
+                        <MenuFlyoutItem  x:Name="EditAccumulation" Text="Изменить" Click="EditAccumulation_Click" />
+                        <MenuFlyoutItem  x:Name="DeleteAccumulation" Text="Удалить" Click="DeleteAccumulation_Click"   />
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
+        </ListView>
+        <TextBlock x:Name="errorText" VerticalAlignment="Bottom" Foreground="#c9302c" Margin="10 0 0 10"/>
+    </Grid>
+</Page>

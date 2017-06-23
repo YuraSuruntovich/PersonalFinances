@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="PersonalFinances.Pages.SourceOfIncomeAddEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PersonalFinances.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='1' x:Name="BtnOk" Icon="Accept" Label="Готово" HorizontalAlignment="Right" 
+                                             />
+            <AppBarButton x:ConnectionId='2' x:Name="BtnCancel" Icon="Cancel" Label="Отмена" HorizontalAlignment="Right" 
+                                                 />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <ScrollViewer>
+        <Grid Background="#efebec">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:ConnectionId='3' Grid.Row="0" x:Name="headerBlock" Text = "Добавить категорию доходов"
+                           Style="{ThemeResource HeaderTextBlockStyle}" Foreground="#0f754f" Margin="10 0 0 0" />
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Название" Margin="10 0 0 0"/>
+                <TextBox x:ConnectionId='5' x:Name="nameSourceOfIncome" Margin="10" IsSpellCheckEnabled="True" PlaceholderText="Введите название категории..." />
+            </StackPanel>
+            <TextBlock x:ConnectionId='4' Grid.Row="2" x:Name="errorText" VerticalAlignment="Bottom" Foreground="#c9302c" Margin="10 0 0 10"/>
+        </Grid>
+    </ScrollViewer>
+</Page>
+
